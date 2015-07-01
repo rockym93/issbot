@@ -13,13 +13,16 @@ def getUpdates(offset=0,timeout=0):
 		data = json.loads(f.read().decode('utf-8'))
 	return(data['result'])
 
+def processUpdate(update):
+	print(update['message']['text'])
+
 while True:
 	updates = getUpdates(offset, 10)
 	if updates:
 		offset = updates[-1]['update_id'] + 1
 		
 		for update in updates:
-			print(update['message']['text'])
+			processUpdate(update)
 
 
 
