@@ -9,13 +9,13 @@ url = 'https://api.telegram.org/'
 botkey = 'bot122232540:AAHDFXIuQOzCaO0XGlBAGNdlcy5rLDYQ0O8'
 
 while True:
-	with urllib.request.urlopen(url + botkey + '/getUpdates?offset=' + offset) as f:
+	with urllib.request.urlopen(url + botkey + '/getUpdates?offset=' + str(offset)) as f:
 		data = json.loads(f.read().decode('utf-8'))
 	
 	for update in data['result']:
-		offset = str(update['update_id'])
-		print(offset)
 		print(update['message']['text'])
+	offset = data['result'][-1]['update_id']
+	print(offset)
 		
 
 		
