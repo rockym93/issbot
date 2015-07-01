@@ -2,6 +2,7 @@
 
 import feedparser
 import urllib.request
+import urllib.parse
 import json
 
 url = 'https://api.telegram.org/'
@@ -14,8 +15,12 @@ def getUpdates(offset=0,timeout=0):
 	return(data['result'])
 
 def processUpdate(update):
-	print(update['message']['text'])
-
+	sendMessage(update['message']['from']['id'], update['message']['text'])
+	
+def sendMessage(to, text, reply=False):
+	tosend = urllib.parse.urlencode({'chat_id':to, 'text':text}).encode('utf-8')
+	urllib.request.urlopen(url + botkey + '/sendMessage?', tosend)
+	
 while True:
 	updates = getUpdates(offset, 10)
 	if updates:
