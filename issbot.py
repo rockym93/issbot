@@ -83,8 +83,9 @@ def sendLocation(to, latitude, longitude, reply=False):
 def spaceStationPass(latitude, longitude):
 	with urllib.request.urlopen('http://api.open-notify.org/iss-pass.json?lat=' + str(latitude) + '&lon=' + str(longitude)) as f:
 		issdata = json.loads(f.read().decode('utf-8'))
-	nextpass = "The next time the ISS will pass overhead will be "
+	nextpass = "The next time the ISS will pass overhead will be at"
 	nextpass += time.strftime('%d %B at %H:%M UTC', time.gmtime(issdata['response'][0]['risetime']))
+	nextpass += " for " + issdata['response'][0]['duration'] + " seconds."
 	return nextpass
 
 def spaceStationNow():
