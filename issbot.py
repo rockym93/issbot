@@ -19,7 +19,12 @@ helptext = '''I can help you spot the International Space Station passing overhe
 (Or just reply with a Telegram location)'''
 
 def getUpdates(offset=0,timeout=0):
-	with urllib.request.urlopen(url + botkey + '/getUpdates?offset=' + str(offset) + '&timeout=' + str(timeout)) as f:
+	parameters = {
+	'offset':offset,
+	'timeout':timeout
+	}
+	tosend = urllib.parse.urlencode(parameters)
+	with urllib.request.urlopen(url + botkey + '/getUpdates?' + tosend) as f:
 		data = json.loads(f.read().decode('utf-8'))
 	return(data['result'])
 
@@ -38,9 +43,12 @@ def processUpdate(update):
 			sendMessage(from_id, helptext, message_id)
 
 		elif cmd == '/spot':
-			arguments = text.split(' ',1)[1]
-			iss = spaceStationPass(arguments.split(' ')[0], arguments.split(' ')[1])
-			sendMessage(from_id, iss, message_id)
+			try:
+				arguments = text.split(' ',1)[1]
+				iss = spaceStationPass(arguments.split(' ')[0], arguments.split(' ')[1])
+				sendMessage(from_id, iss, message_id)
+			except IndexError:
+				pass
 		
 		elif cmd == '/now':
 			iss = spaceStationNow()
