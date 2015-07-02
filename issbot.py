@@ -85,7 +85,7 @@ def spaceStationPass(latitude, longitude):
 		issdata = json.loads(f.read().decode('utf-8'))
 	nextpass = "The next time the ISS will pass overhead will be at"
 	nextpass += time.strftime('%d %B at %H:%M UTC', time.gmtime(issdata['response'][0]['risetime']))
-	nextpass += " for " + issdata['response'][0]['duration'] + " seconds."
+	nextpass += " for " + str(issdata['response'][0]['duration']) + " seconds."
 	return nextpass
 
 def spaceStationNow():
