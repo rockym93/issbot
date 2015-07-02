@@ -5,3 +5,5 @@ Description=Telegram ISS bot
 User=%i
 ExecStart=/usr/bin/python /home/rocky/issbot/issbot.py
 
+[Install]
+WantedBy=multi-user.target
