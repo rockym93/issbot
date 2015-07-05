@@ -39,10 +39,10 @@ def processUpdate(update):
 	elif 'text' in update['message']:
 		text = update['message']['text']
 		cmd = text.split(' ',1)[0]
-		if cmd == '/help':
+		if cmd.lower() in ['/help','/help@issbot']:
 			sendMessage(from_id, helptext, message_id)
 
-		elif cmd == '/spot':
+		elif cmd.lower() in ['/spot','/spot@issbot']:
 			try:
 				arguments = text.split(' ',1)[1]
 				iss = spaceStationPass(arguments.split(' ')[0], arguments.split(' ')[1])
@@ -50,9 +50,10 @@ def processUpdate(update):
 			except IndexError:
 				pass
 		
-		elif cmd == '/now':
+		elif cmd.lower() in ['/now','/now@issbot']:
 			iss = spaceStationNow()
 			sendLocation(from_id, iss['latitude'], iss['longitude'], message_id)
+
 			
 	
 def sendMessage(to, text, reply=False):
