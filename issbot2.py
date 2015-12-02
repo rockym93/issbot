@@ -13,7 +13,7 @@ with open('key.txt') as f:
 	bot.key = f.read().rstrip()
 
 def pass(latitude, longitude):
-'''generic function for grabbing pass data given latitude and longitude'''
+	'''generic function for grabbing pass data given latitude and longitude'''
 	with urllib.request.urlopen('http://api.open-notify.org/iss-pass.json?lat=' + str(latitude) + '&lon=' + str(longitude)) as f:
 		issdata = json.loads(f.read().decode('utf-8'))
 	nextpass = "The next time the ISS will pass overhead will be "
