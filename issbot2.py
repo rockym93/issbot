@@ -9,8 +9,8 @@ import time
 
 data = json.load(sys.stdin)
 
-with key.txt as f:
-	bot.key = f.read()
+with open('key.txt') as f:
+	bot.key = f.read().rstrip()
 
 def pass(latitude, longitude):
 '''generic function for grabbing pass data given latitude and longitude'''
