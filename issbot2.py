@@ -12,7 +12,7 @@ data = json.load(sys.stdin)
 with open('key.txt') as f:
 	bot.key = f.read().rstrip()
 
-def pass(latitude, longitude):
+def isspass(latitude, longitude):
 	'''generic function for grabbing pass data given latitude and longitude'''
 	with urllib.request.urlopen('http://api.open-notify.org/iss-pass.json?lat=' + str(latitude) + '&lon=' + str(longitude)) as f:
 		issdata = json.loads(f.read().decode('utf-8'))
@@ -57,7 +57,7 @@ def location(message):
 	tosend = {
 	'chat_id': message['chat']['id'],
 	'reply_to_message': message['message_id'],
-	'text': "The ISS will next pass over your location at " + pass(latitude, longitude)
+	'text': "The ISS will next pass over your location at " + isspass(latitude, longitude)
 	}
 	bot.api('sendMessage', tosend)
 
