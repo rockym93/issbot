@@ -6,6 +6,9 @@ url = 'https://api.telegram.org/'
 commands = {}
 handlers = {}
 
+print('Content-Type: application/json')
+print('')
+
 def api(method, params=None, files=None):
 	'''
 	I take a Telegram method name, and dictionaries of parameters or files to pass to that method.
