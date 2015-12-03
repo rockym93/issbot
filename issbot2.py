@@ -5,18 +5,12 @@ import lazybot as bot
 import urllib
 import urllib.request
 import json
-import sys
+
 import time
-
-data = json.load(sys.stdin)
-
-with open('key.txt') as f:
-	bot.key = f.read().rstrip()
 
 def isspass(latitude, longitude):
 	'''generic function for grabbing pass data given latitude and longitude'''
-	with urllib.request.urlopen('http://api.open-notify.org/iss-pass.json?lat=' + str(latitude) + '&lon=' + str(longitude)) as f:
-		issdata = json.loads(f.read().decode('utf-8'))
+	issdata = requests.get('http://api.open-notify.org/iss-pass.json?lat=' + str(latitude) + '&lon=' + str(longitude)).json()
 	nextpass = "The next time the ISS will pass overhead will be "
 	nextpass += time.strftime('%d %B at %H:%M UTC', time.gmtime(issdata['response'][0]['risetime']))
 	nextpass += " for " + str(issdata['response'][0]['duration']) + " seconds."
@@ -37,8 +31,7 @@ Send me a location to get pass predictions, or /now to see where the station is 
 	bot.api('sendMessage', tosend)
 
 def now(message):
-	with urllib.request.urlopen('http://api.open-notify.org/iss-now.json') as f:
-		issdata = json.loads(f.read().decode('utf-8'))
+	issdata = requests.get('http://api.open-notify.org/iss-now.json').json()
 	latitude = issdata['iss_position']['latitude']
 	longitude = issdata['iss_position']['longitude']
 	tosend = {
@@ -66,4 +59,4 @@ bot.handlers['location'] = location
 
 ### END COMMAND DEFINITIONS ###
 
-bot.processupdate(data)
+bot.processupdate()
