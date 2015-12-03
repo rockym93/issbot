@@ -49,7 +49,7 @@ def location(message):
 	tosend = {
 	'chat_id': message['chat']['id'],
 	'reply_to_message': message['message_id'],
-	'text': "The ISS will next pass over your location at " + isspass(latitude, longitude)
+	'text': isspass(latitude, longitude)
 	}
 	bot.api('sendMessage', tosend)
 
