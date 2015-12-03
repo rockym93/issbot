@@ -2,9 +2,7 @@
 
 import lazybot as bot
 
-import urllib
-import urllib.request
-import json
+import requests
 
 import time
 
