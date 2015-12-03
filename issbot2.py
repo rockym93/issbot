@@ -1,8 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import lazybot as bot
 
 import urllib
+import urllib.request
 import json
 import sys
 import time
@@ -62,3 +63,7 @@ def location(message):
 	bot.api('sendMessage', tosend)
 
 bot.handlers['location'] = location
+
+### END COMMAND DEFINITIONS ###
+
+bot.processupdate(data)
